@@ -11,6 +11,12 @@
         End If
     End Sub
 
+    Private Sub SaveImage()
+        If SaveFileDialog.ShowDialog = DialogResult.OK Then
+            ImageEditor.Image.Save(SaveFileDialog.FileName)
+        End If
+    End Sub
+
     Private Sub UpdateButtons()
         tbSave.Enabled = ImageEditor.Image IsNot Nothing
         tbHand.Enabled = tbSave.Enabled
@@ -20,6 +26,8 @@
         tbHand.Checked = ImageEditor.Mode = ZoomPanelMode.pmMove
         tbDraw.Checked = ImageEditor.Mode = ZoomPanelMode.pmPaint
         tbErase.Checked = ImageEditor.Mode = ZoomPanelMode.pmEarse
+
+        miFileSave.Enabled = tbSave.Enabled
     End Sub
 
     Private Sub UpdateZoom()
@@ -70,8 +78,10 @@
     End Sub
 
     Private Sub tbSave_Click(sender As Object, e As EventArgs) Handles tbSave.Click
-        If SaveFileDialog.ShowDialog = DialogResult.OK Then
-            ImageEditor.Image.Save(SaveFileDialog.FileName)
-        End If
+        SaveImage()
+    End Sub
+
+    Private Sub miFileSave_Click(sender As Object, e As EventArgs) Handles miFileSave.Click
+        SaveImage()
     End Sub
 End Class

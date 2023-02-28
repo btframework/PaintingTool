@@ -1,0 +1,12 @@
+d:\Projects\Shared Projects\Windows\PaintingTool\bin\Release\PaintingTool.exe
+d:\Projects\Shared Projects\Windows\PaintingTool\bin\Release\PaintingTool.pdb
+d:\Projects\Shared Projects\Windows\PaintingTool\bin\Release\PaintingTool.xml
+d:\Projects\Shared Projects\Windows\PaintingTool\obj\Release\PaintingTool.vbproj.AssemblyReference.cache
+d:\Projects\Shared Projects\Windows\PaintingTool\obj\Release\PaintingTool.fmMain.resources
+d:\Projects\Shared Projects\Windows\PaintingTool\obj\Release\PaintingTool.Resources.resources
+d:\Projects\Shared Projects\Windows\PaintingTool\obj\Release\PaintingTool.ZoomPanel.resources
+d:\Projects\Shared Projects\Windows\PaintingTool\obj\Release\PaintingTool.vbproj.GenerateResource.cache
+d:\Projects\Shared Projects\Windows\PaintingTool\obj\Release\PaintingTool.vbproj.CoreCompileInputs.cache
+d:\Projects\Shared Projects\Windows\PaintingTool\obj\Release\PaintingTool.exe
+d:\Projects\Shared Projects\Windows\PaintingTool\obj\Release\PaintingTool.xml
+d:\Projects\Shared Projects\Windows\PaintingTool\obj\Release\PaintingTool.pdb

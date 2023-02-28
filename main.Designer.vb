@@ -42,6 +42,7 @@ Partial Class fmMain
         Me.slZoom = New System.Windows.Forms.ToolStripStatusLabel()
         Me.slPosition = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
+        Me.miFileSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.MainMenu.SuspendLayout()
         Me.tbMain.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -58,7 +59,7 @@ Partial Class fmMain
         '
         'miFile
         '
-        Me.miFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miFileOpen, Me.miFileSeparator1, Me.miFileExit})
+        Me.miFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miFileOpen, Me.miFileSave, Me.miFileSeparator1, Me.miFileExit})
         Me.miFile.Name = "miFile"
         Me.miFile.Size = New System.Drawing.Size(37, 20)
         Me.miFile.Text = "&File"
@@ -66,18 +67,18 @@ Partial Class fmMain
         'miFileOpen
         '
         Me.miFileOpen.Name = "miFileOpen"
-        Me.miFileOpen.Size = New System.Drawing.Size(103, 22)
+        Me.miFileOpen.Size = New System.Drawing.Size(180, 22)
         Me.miFileOpen.Text = "&Open"
         '
         'miFileSeparator1
         '
         Me.miFileSeparator1.Name = "miFileSeparator1"
-        Me.miFileSeparator1.Size = New System.Drawing.Size(100, 6)
+        Me.miFileSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'miFileExit
         '
         Me.miFileExit.Name = "miFileExit"
-        Me.miFileExit.Size = New System.Drawing.Size(103, 22)
+        Me.miFileExit.Size = New System.Drawing.Size(180, 22)
         Me.miFileExit.Text = "E&xit"
         '
         'tbMain
@@ -192,6 +193,12 @@ Partial Class fmMain
         Me.slPosition.Size = New System.Drawing.Size(51, 17)
         Me.slPosition.Text = "X: 0; Y: 0"
         '
+        'miFileSave
+        '
+        Me.miFileSave.Name = "miFileSave"
+        Me.miFileSave.Size = New System.Drawing.Size(180, 22)
+        Me.miFileSave.Text = "&Save"
+        '
         'fmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -233,4 +240,5 @@ Partial Class fmMain
     Friend WithEvents slZoom As ToolStripStatusLabel
     Friend WithEvents slPosition As ToolStripStatusLabel
     Friend WithEvents SaveFileDialog As SaveFileDialog
+    Friend WithEvents miFileSave As ToolStripMenuItem
 End Class
