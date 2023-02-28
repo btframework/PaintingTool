@@ -26,6 +26,7 @@ Partial Class fmMain
         Me.MainMenu = New System.Windows.Forms.MenuStrip()
         Me.miFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.miFileOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miFileSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.miFileSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.miFileExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
@@ -36,13 +37,14 @@ Partial Class fmMain
         Me.tbHand = New System.Windows.Forms.ToolStripButton()
         Me.tbDraw = New System.Windows.Forms.ToolStripButton()
         Me.tbErase = New System.Windows.Forms.ToolStripButton()
-        Me.ImageEditor = New PaintingTool.ZoomPanel()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.slSize = New System.Windows.Forms.ToolStripStatusLabel()
         Me.slZoom = New System.Windows.Forms.ToolStripStatusLabel()
         Me.slPosition = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
-        Me.miFileSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImageEditor = New PaintingTool.ZoomPanel()
+        Me.ColorDialog = New System.Windows.Forms.ColorDialog()
+        Me.tbColor = New System.Windows.Forms.ToolStripButton()
         Me.MainMenu.SuspendLayout()
         Me.tbMain.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -67,24 +69,30 @@ Partial Class fmMain
         'miFileOpen
         '
         Me.miFileOpen.Name = "miFileOpen"
-        Me.miFileOpen.Size = New System.Drawing.Size(180, 22)
+        Me.miFileOpen.Size = New System.Drawing.Size(103, 22)
         Me.miFileOpen.Text = "&Open"
+        '
+        'miFileSave
+        '
+        Me.miFileSave.Name = "miFileSave"
+        Me.miFileSave.Size = New System.Drawing.Size(103, 22)
+        Me.miFileSave.Text = "&Save"
         '
         'miFileSeparator1
         '
         Me.miFileSeparator1.Name = "miFileSeparator1"
-        Me.miFileSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.miFileSeparator1.Size = New System.Drawing.Size(100, 6)
         '
         'miFileExit
         '
         Me.miFileExit.Name = "miFileExit"
-        Me.miFileExit.Size = New System.Drawing.Size(180, 22)
+        Me.miFileExit.Size = New System.Drawing.Size(103, 22)
         Me.miFileExit.Text = "E&xit"
         '
         'tbMain
         '
         Me.tbMain.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.tbMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tbOpen, Me.tbSave, Me.ToolStripSeparator1, Me.tbHand, Me.tbDraw, Me.tbErase})
+        Me.tbMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tbOpen, Me.tbSave, Me.ToolStripSeparator1, Me.tbHand, Me.tbDraw, Me.tbErase, Me.tbColor})
         Me.tbMain.Location = New System.Drawing.Point(0, 24)
         Me.tbMain.Name = "tbMain"
         Me.tbMain.Size = New System.Drawing.Size(800, 31)
@@ -145,22 +153,6 @@ Partial Class fmMain
         Me.tbErase.Size = New System.Drawing.Size(28, 28)
         Me.tbErase.Text = "Erase"
         '
-        'ImageEditor
-        '
-        Me.ImageEditor.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ImageEditor.CanvasSize = New System.Drawing.Size(700, 300)
-        Me.ImageEditor.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ImageEditor.Image = Nothing
-        Me.ImageEditor.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.[Default]
-        Me.ImageEditor.Location = New System.Drawing.Point(12, 58)
-        Me.ImageEditor.Mode = PaintingTool.ZoomPanelMode.pmMove
-        Me.ImageEditor.Name = "ImageEditor"
-        Me.ImageEditor.Size = New System.Drawing.Size(776, 357)
-        Me.ImageEditor.TabIndex = 1
-        Me.ImageEditor.Zoom = 1.0R
-        '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.slSize, Me.slZoom, Me.slPosition})
@@ -193,11 +185,32 @@ Partial Class fmMain
         Me.slPosition.Size = New System.Drawing.Size(51, 17)
         Me.slPosition.Text = "X: 0; Y: 0"
         '
-        'miFileSave
+        'ImageEditor
         '
-        Me.miFileSave.Name = "miFileSave"
-        Me.miFileSave.Size = New System.Drawing.Size(180, 22)
-        Me.miFileSave.Text = "&Save"
+        Me.ImageEditor.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ImageEditor.CanvasSize = New System.Drawing.Size(700, 300)
+        Me.ImageEditor.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ImageEditor.Image = Nothing
+        Me.ImageEditor.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.[Default]
+        Me.ImageEditor.Location = New System.Drawing.Point(12, 58)
+        Me.ImageEditor.Mode = PaintingTool.ZoomPanelMode.pmMove
+        Me.ImageEditor.Name = "ImageEditor"
+        Me.ImageEditor.Size = New System.Drawing.Size(776, 357)
+        Me.ImageEditor.TabIndex = 1
+        Me.ImageEditor.Zoom = 1.0R
+        '
+        'tbColor
+        '
+        Me.tbColor.BackColor = System.Drawing.Color.Black
+        Me.tbColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None
+        Me.tbColor.Image = CType(resources.GetObject("tbColor.Image"), System.Drawing.Image)
+        Me.tbColor.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tbColor.Margin = New System.Windows.Forms.Padding(2, 6, 2, 6)
+        Me.tbColor.Name = "tbColor"
+        Me.tbColor.Size = New System.Drawing.Size(23, 19)
+        Me.tbColor.Text = "ToolStripButton1"
         '
         'fmMain
         '
@@ -241,4 +254,6 @@ Partial Class fmMain
     Friend WithEvents slPosition As ToolStripStatusLabel
     Friend WithEvents SaveFileDialog As SaveFileDialog
     Friend WithEvents miFileSave As ToolStripMenuItem
+    Private WithEvents tbColor As ToolStripButton
+    Friend WithEvents ColorDialog As ColorDialog
 End Class

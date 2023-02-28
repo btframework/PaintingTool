@@ -9,9 +9,47 @@ Public Class ZoomPanel
     Private FMode As ZoomPanelMode
     Private FMouseDown As Boolean
     Private FMousePoint As Point
+    Private FPenColor As Color
     Private FRectHeight As Integer
     Private FRectWidth As Integer
     Private FZoom As Double
+
+    Private Sub CalcMousePosition(MouseX As Integer, MouseY As Integer)
+        Dim X As Integer
+        Dim Y As Integer
+
+        If FImage Is Nothing Then
+            X = 0
+            Y = 0
+        Else
+            Dim Width = FCanvasSize.Width * Zoom
+            If MouseX > Width Then
+                X = Width
+            Else
+                X = MouseX
+            End If
+
+            Dim Height = FCanvasSize.Height * Zoom
+            If MouseY > Height Then
+                Y = Height
+            Else
+                Y = MouseY
+            End If
+        End If
+        DoPositionChanged(X, Y)
+    End Sub
+
+    Private Sub CalcRectangles(ByRef SrcRect As Rectangle, ByRef DstRect As Rectangle)
+        Dim Pt As Point
+        If FCanvasSize.Width * FZoom < FRectWidth And FCanvasSize.Height * FZoom < FRectHeight Then
+            Pt = New Point(0, 0)
+        Else
+            Pt = New Point(sbHorizontal.Value / FZoom, sbVertical.Value / FZoom)
+        End If
+
+        SrcRect = New Rectangle(Pt, New Size(FRectWidth / FZoom, FRectHeight / FZoom))
+        DstRect = New Rectangle(-SrcRect.Width / 2, -SrcRect.Height / 2, SrcRect.Width, SrcRect.Height)
+    End Sub
 
     Private Sub DisplayScrollbar()
         If FImage IsNot Nothing Then
@@ -62,119 +100,6 @@ Public Class ZoomPanel
         EndPoint = New Point(X, Y)
 
         Graph = Graphics.FromImage(FImage)
-    End Sub
-
-    Private Sub DoErase(e As MouseEventArgs)
-        Dim StartPoint As Point
-        Dim EndPoint As Point
-        Dim Graph As Graphics = Nothing
-        GetPointsForDraw(e, StartPoint, EndPoint, Graph)
-
-        Dim X As Integer
-        Dim Y As Integer
-        If StartPoint.X > EndPoint.X Then
-            X = EndPoint.X
-            EndPoint.X = StartPoint.X
-            StartPoint.X = X
-        End If
-        If StartPoint.Y > EndPoint.Y Then
-            Y = EndPoint.Y
-            EndPoint.Y = StartPoint.Y
-            StartPoint.Y = Y
-        End If
-
-        If StartPoint.X = EndPoint.X Then
-            EndPoint.X += 10
-        End If
-        If StartPoint.Y = EndPoint.Y Then
-            EndPoint.Y += 10
-        End If
-        Dim Rect = New Rectangle(StartPoint, New Size(EndPoint.X - StartPoint.X, EndPoint.Y - StartPoint.Y))
-        Graph.DrawImage(FImageCopy, Rect, Rect, GraphicsUnit.Pixel)
-
-        Invalidate()
-
-        Graph.Dispose()
-    End Sub
-
-    Private Sub DoMove(e As MouseEventArgs)
-        Dim Point = New Point(e.X, e.Y)
-        Dim Changed As Boolean = False
-
-        Dim NewVal As Integer
-        If sbVertical.Visible Then
-            NewVal = sbVertical.Value + (FMousePoint.Y - Point.Y)
-            If NewVal >= sbVertical.Minimum And NewVal <= sbVertical.Maximum Then
-                sbVertical.Value = NewVal
-                Changed = True
-            End If
-        End If
-
-        If sbHorizontal.Visible Then
-            NewVal = sbHorizontal.Value + (FMousePoint.X - Point.X)
-            If NewVal >= sbHorizontal.Minimum And NewVal <= sbHorizontal.Maximum Then
-                sbHorizontal.Value = NewVal
-                Changed = True
-            End If
-        End If
-
-        If Changed Then
-            Invalidate()
-        End If
-    End Sub
-
-    Private Sub DoPaint(e As MouseEventArgs)
-        Dim StartPoint As Point
-        Dim EndPoint As Point
-        Dim Graph As Graphics = Nothing
-        GetPointsForDraw(e, StartPoint, EndPoint, Graph)
-        Graph.CompositingMode = CompositingMode.SourceCopy
-
-        Dim Clr = Color.FromArgb(0, 0, 0, 0)
-        Dim Pen = New Pen(Clr)
-        Graph.DrawLine(Pen, StartPoint, EndPoint)
-
-        Invalidate()
-
-        Graph.Dispose()
-        Pen.Dispose()
-    End Sub
-
-    Private Sub CalcMousePosition(MouseX As Integer, MouseY As Integer)
-        Dim X As Integer
-        Dim Y As Integer
-
-        If FImage Is Nothing Then
-            X = 0
-            Y = 0
-        Else
-            Dim Width = FCanvasSize.Width * Zoom
-            If MouseX > Width Then
-                X = Width
-            Else
-                X = MouseX
-            End If
-
-            Dim Height = FCanvasSize.Height * Zoom
-            If MouseY > Height Then
-                Y = Height
-            Else
-                Y = MouseY
-            End If
-        End If
-        DoPositionChanged(X, Y)
-    End Sub
-
-    Private Sub CalcRectangles(ByRef SrcRect As Rectangle, ByRef DstRect As Rectangle)
-        Dim Pt As Point
-        If FCanvasSize.Width * FZoom < FRectWidth And FCanvasSize.Height * FZoom < FRectHeight Then
-            Pt = New Point(0, 0)
-        Else
-            Pt = New Point(sbHorizontal.Value / FZoom, sbVertical.Value / FZoom)
-        End If
-
-        SrcRect = New Rectangle(Pt, New Size(FRectWidth / FZoom, FRectHeight / FZoom))
-        DstRect = New Rectangle(-SrcRect.Width / 2, -SrcRect.Height / 2, SrcRect.Width, SrcRect.Height)
     End Sub
 
     Private Sub SetScrollbarValues()
@@ -231,6 +156,81 @@ Public Class ZoomPanel
         End If
     End Sub
 
+    Private Sub UseErase(e As MouseEventArgs)
+        Dim StartPoint As Point
+        Dim EndPoint As Point
+        Dim Graph As Graphics = Nothing
+        GetPointsForDraw(e, StartPoint, EndPoint, Graph)
+
+        Dim X As Integer
+        Dim Y As Integer
+        If StartPoint.X > EndPoint.X Then
+            X = EndPoint.X
+            EndPoint.X = StartPoint.X
+            StartPoint.X = X
+        End If
+        If StartPoint.Y > EndPoint.Y Then
+            Y = EndPoint.Y
+            EndPoint.Y = StartPoint.Y
+            StartPoint.Y = Y
+        End If
+
+        If StartPoint.X = EndPoint.X Then
+            EndPoint.X += 10
+        End If
+        If StartPoint.Y = EndPoint.Y Then
+            EndPoint.Y += 10
+        End If
+        Dim Rect = New Rectangle(StartPoint, New Size(EndPoint.X - StartPoint.X, EndPoint.Y - StartPoint.Y))
+        Graph.DrawImage(FImageCopy, Rect, Rect, GraphicsUnit.Pixel)
+
+        Invalidate()
+
+        Graph.Dispose()
+    End Sub
+
+    Private Sub UseMove(e As MouseEventArgs)
+        Dim Point = New Point(e.X, e.Y)
+        Dim Changed As Boolean = False
+
+        Dim NewVal As Integer
+        If sbVertical.Visible Then
+            NewVal = sbVertical.Value + (FMousePoint.Y - Point.Y)
+            If NewVal >= sbVertical.Minimum And NewVal <= sbVertical.Maximum Then
+                sbVertical.Value = NewVal
+                Changed = True
+            End If
+        End If
+
+        If sbHorizontal.Visible Then
+            NewVal = sbHorizontal.Value + (FMousePoint.X - Point.X)
+            If NewVal >= sbHorizontal.Minimum And NewVal <= sbHorizontal.Maximum Then
+                sbHorizontal.Value = NewVal
+                Changed = True
+            End If
+        End If
+
+        If Changed Then
+            Invalidate()
+        End If
+    End Sub
+
+    Private Sub UsePaint(e As MouseEventArgs)
+        Dim StartPoint As Point
+        Dim EndPoint As Point
+        Dim Graph As Graphics = Nothing
+        GetPointsForDraw(e, StartPoint, EndPoint, Graph)
+        Graph.CompositingMode = CompositingMode.SourceCopy
+
+        Dim Pen = New Pen(FPenColor)
+        Graph.DrawLine(Pen, StartPoint, EndPoint)
+
+        Invalidate()
+
+        Graph.Dispose()
+        Pen.Dispose()
+    End Sub
+
     Protected Overrides Sub OnLoad(e As EventArgs)
         DisplayScrollbar()
         SetScrollbarValues()
@@ -255,11 +255,11 @@ Public Class ZoomPanel
         If FMouseDown Then
             Select Case FMode
                 Case ZoomPanelMode.pmMove
-                    DoMove(e)
+                    UseMove(e)
                 Case ZoomPanelMode.pmPaint
-                    DoPaint(e)
+                    UsePaint(e)
                 Case ZoomPanelMode.pmEarse
-                    DoErase(e)
+                    UseErase(e)
             End Select
             FMousePoint = New Point(e.X, e.Y)
         End If
@@ -337,6 +337,7 @@ Public Class ZoomPanel
         FMode = ZoomPanelMode.pmMove
         FMouseDown = False
         FMousePoint = Nothing
+        FPenColor = Color.Black
         FRectHeight = 0
         FRectWidth = 0
         FZoom = 1.0!
@@ -364,6 +365,16 @@ Public Class ZoomPanel
             SetScrollbarValues()
 
             Invalidate()
+        End Set
+    End Property
+
+    Public Property PenColor As Color
+        Get
+            Return FPenColor
+        End Get
+
+        Set(Value As Color)
+            FPenColor = Value
         End Set
     End Property
 

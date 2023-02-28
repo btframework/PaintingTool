@@ -84,4 +84,11 @@
     Private Sub miFileSave_Click(sender As Object, e As EventArgs) Handles miFileSave.Click
         SaveImage()
     End Sub
+
+    Private Sub tbColor_Click(sender As Object, e As EventArgs) Handles tbColor.Click
+        If ColorDialog.ShowDialog = DialogResult.OK Then
+            tbColor.BackColor = ColorDialog.Color
+            ImageEditor.PenColor = ColorDialog.Color
+        End If
+    End Sub
 End Class
