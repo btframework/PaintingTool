@@ -3,7 +3,9 @@
 
  This program based on this Freelacer request: https://www.freelancer.com/projects/vb-net/net-paint-drawing-tool/details
  
- It was funny to write it.
+ It was funny to write it. Visual Studio 2019, VB.NET, .Net Framework 4
+ 
+ **NOTE**: This was created **just for fun**, I have not been paid for this project and did not win a bid.
  
  This project was developed by [me](https://www.facebook.com/marina.petrichenko.1)
 
