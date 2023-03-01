@@ -1,4 +1,15 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿'
+' Copyright (C) 2023 Marina Petrichenko
+' 
+' marina@btframework.com  
+'   https://www.facebook.com/marina.petrichenko.1  
+'   https://www.btframework.com
+' 
+' It Is free for non-commercial And/Or education use only.
+'   
+'
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ZoomPanel
     Inherits System.Windows.Forms.UserControl
 
