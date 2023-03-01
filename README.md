@@ -9,7 +9,9 @@
  
  **NOTE**: This was created **just for fun**, I have not been paid for this project and did not win a bid.
  
- **It is free for non commercial and education use only. You CAN NOT us### Copyrights
+ **It is free for non commercial and education use only.
+ 
+ ### Copyrights
 
 Copyright (C) 2023 Marina Petrichenko  
 marina@btframework.com  
