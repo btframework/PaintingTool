@@ -5,8 +5,17 @@
  
  It was funny to write it.
  
- This project was developed by [me](https://www.facebook.com/marina.petrichenko.1)
+ .Net Framework 4, Visual Studio 2019, VB.NET
+ 
+ **NOTE**: This was created **just for fun**, I have not been paid for this project and did not win a bid.
+ 
+ **It is free for non commercial and education use only.
+ 
+ ### Copyrights
 
-  Should you have any question you can contact me directly at marina@btframework.com
-
- Do not forget about our [Bluetooth Framework](https://www.btframework.com/bluetoothframework.htm). It does really save you development time if you need to add Bluetooth support in your apps.
+Copyright (C) 2023 Marina Petrichenko  
+marina@btframework.com  
+https://www.facebook.com/marina.petrichenko.1  
+https://www.btframework.com
+  
+It is free for non-commercial and/or education use only.
